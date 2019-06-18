@@ -9,27 +9,20 @@
 import UIKit
 
 extension UIBlurEffect.Style {
-    var name: String {
-        switch self {
-        case .systemUltraThinMaterial: return "systemUltraThinMaterial"
-        case .systemThinMaterial: return "systemThinMaterial"
-        case .systemMaterial: return "systemMaterial"
-        case .systemThickMaterial: return "systemThickMaterial"
-        case .systemChromeMaterial: return "systemChromeMaterial"
-        default: return "unknown"
-        }
-    }
+    private static var effectAndName: [UIBlurEffect.Style: String] {[
+        .systemUltraThinMaterial: "systemUltraThinMaterial",
+        .systemThinMaterial: "systemThinMaterial",
+        .systemMaterial: "systemMaterial",
+        .systemThickMaterial: "systemThickMaterial",
+        .systemChromeMaterial: "systemChromeMaterial"
+        ]}
+    static var effects: [UIBlurEffect.Style] { Array(UIBlurEffect.Style.effectAndName.keys) }
+    var name: String { UIBlurEffect.Style.effectAndName[self, default: "unknown"] }
 }
 
 class ViewController: UIViewController {
 
-    private var effects: [UIBlurEffect.Style] = [
-        .systemUltraThinMaterial,
-        .systemThinMaterial,
-        .systemMaterial,
-        .systemThickMaterial,
-        .systemChromeMaterial
-    ]
+    private var effects = UIBlurEffect.Style.effects
 
     private var currentEffectIndex = -1
 
